@@ -1,20 +1,13 @@
-﻿@using UtilitiesService.Models;
-
-
-
-
+﻿
     <h2 style="background-color:lightgray">Power Outages</h2>
-    <table id="tblPowerOutageList" style="width:800;">         
-    </table>
+    <table id="tblPowerOutageList"></table>
    <div id="PowerOutageListPager"></div>
-    @*<table id="search"></table>
-    <div id="filter"></div>*@
 
     <div class="contextMenu" id="myMenu1" style="display:none">
         <ul style="width: auto!Important;">
             <li id="ViewAddressDetails">
                 <span class="ui-icon ui-icon-plus" style="float:left"></span>
-                <span style="font-size:11px; font-family:Verdana">View Location Details/Map</span>
+                <span style="font-size:11px; font-family:Verdana; width:80px;">View Location Details/Map</span>
             </li>
         </ul>
     </div>
@@ -22,32 +15,21 @@
 
 <script type="text/javascript">
 
-    var gridData;
-
     $(function () {
 
-        InitGrid(null);
-        //$.ajax({
-        //    url: 'http://localhost:36453/api/UtilitiesAPI/GetPowerOutages',
-        //    type: 'GET',
-        //    dataType: 'json',
-        //    success: function (data) {
-        //        gridData = data;
-        //        //alert(JSON.stringify(gridData));
-        //        InitGrid(JSON.stringify(gridData));
-        //    },
-        //    error: function (xhr, errorThrown) {
-        //        alert("AJAX Error : " + errorThrown);
-        //    }
-        //});
+        InitGrid1();
     });
+    
 
+    function InitGrid1()
+    {
 
-    function InitGrid(gridData) {
         $("#tblPowerOutageList").jqGrid({
             url: "http://localhost:36453/api/UtilitiesAPI/GetPowerOutages",
             datatype: "json",
             mtype: "GET",
+            //datatype: "local",
+            //data: gridData,
             jsonReader: {
                 total: "Total",
                 records: "TotalRecords",
@@ -57,31 +39,31 @@
             },
             colNames: ['ServiceAddress', 'ServiceCity', 'ServiceState', 'ServiceAsOfDate'],
             colModel: [
-                { name: 'ServiceAddress', index: 'ServiceAddress', width: 440, searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
-                { name: 'ServiceCity', index: 'ServiceCity',  width: 220, searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
-                { name: 'ServiceState', index: 'ServiceState',  width: 120, searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
-                { name: 'ServiceAsOfDate', index: 'ServiceAsOfDate',  width: 280, searchoptions: { sopt: ['eq'] } },
+                { name: 'ServiceAddress', index: 'ServiceAddress', width: 440, sorttype: "string", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
+                { name: 'ServiceCity', index: 'ServiceCity', width: 220, sorttype: "string", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
+                { name: 'ServiceState', index: 'ServiceState', width: 120, sorttype: "string", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
+                { name: 'ServiceAsOfDate', index: 'ServiceAsOfDate', width: 280, sorttype: "date", searchoptions: { sopt: ['eq'] } },
             ],
             search: true,
-            rowNum: 100,
-            //rowList: [5, 10, 20, 50],
-            //pager: '#PowerOutageListPager',
+            rowNum: 50,
+            rowList: [5, 10, 20, 50],
+            pager: '#PowerOutageListPager',
             height: 'auto',
-            hidegrid: false,
+            hidegrid: true,
+            loadonce: true,
             viewrecords: true,
             sortname: 'ServiceAsOfDate',
             sortorder: "desc",
             caption: "Power Outage Locations",
-            //data: gridData,
             ondblClickRow: function (ServiceAddress, ri, ci) {
                 alert(ServiceAddress + ", " + ri + ", " + ci);
             },
             loadComplete: function () {
                 $("tr.jqgrow", this).contextMenu('myMenu1', {
                     bindings: {
-                        'ViewAddressDetails': function (trigger) {
+                        'ViewAddressDetails': function (trigger, data) {
 
-                            ShowLocationMap(trigger.ServiceAddress);
+                            ShowLocationMap(trigger);
                         }
                     }
                 });
@@ -89,8 +71,8 @@
 
         });
 
-        //$("#tblPowerOutageList").jqGrid('navGrid', '#PowerOutageListPager', { add: false, edit: false, del: false, search: true, refresh: true },
-        //    {}, {}, {}, { multipleSearch: true, multipleGroup: true, showQuery: true });
+        $("#tblPowerOutageList").jqGrid('navGrid', '#PowerOutageListPager', { add: false, edit: false, del: false, search: true, refresh: true },
+            {}, {}, {}, { multipleSearch: true, multipleGroup: true, showQuery: true });
 
         $("#tblPowerOutageList").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false, defaultSearch: 'cn' });
 
@@ -99,7 +81,7 @@
 
     function ShowLocationMap(address)
     {
-
+        alert(JSON.stringify(address));
     }
      
 </script>

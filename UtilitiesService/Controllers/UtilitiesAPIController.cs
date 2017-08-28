@@ -29,22 +29,26 @@ namespace UtilitiesService.Controllers
         }
 
         [HttpGet]
-        public NoWaterUsage[] GetWaterOutages()
+        public JqGridResponse<NoWaterUsage> GetWaterOutages()
         {
             UtilitiesServiceDataContext db = new UtilitiesServiceDataContext();
-            var ret = db.NoWaterUsages.Where(w => w.LastNonZeroDate > DateTime.Now.AddDays(-7));
+            JqGridResponse<NoWaterUsage> response = new JqGridResponse<NoWaterUsage>();
 
-            return ret.ToArray();
+            response.Rows = db.NoWaterUsages.Where(p => p.SvcLocCity == p.SvcLocCity).ToArray();
+            response.Total = (response.Rows.Count()) / 50;
+            response.TotalRecords = response.Rows.Count();
+
+            return response;
         }
 
         [HttpGet]
-        public JqGridResponse GetPowerOutages()
+        public JqGridResponse<PropNoService> GetPowerOutages()
         {
             UtilitiesServiceDataContext db = new UtilitiesServiceDataContext();
-            JqGridResponse response = new JqGridResponse();
+            JqGridResponse<PropNoService> response = new JqGridResponse<PropNoService>();
 
-            response.Rows = db.PropNoServices.Where(p => p.ServiceAsOfDate > DateTime.Now.AddDays(-7)).ToArray();
-            response.Total = response.Rows.Count();
+            response.Rows = db.PropNoServices.Where(p => p.ServiceAsOfDate > DateTime.Now.AddDays(-14)).ToArray();
+            response.Total = (response.Rows.Count()) / 50;
             response.TotalRecords = response.Rows.Count();
 
             return response;

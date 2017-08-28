@@ -1,22 +1,50 @@
 ﻿@{
-    Layout = null; //"../Shared/_layout.cshtml";
+    Layout = null; // "../Shared/_layout.cshtml";
     ViewBag.Title = "Utilities Service Outages";
 }
 
 
 <script src="~/Scripts/jquery-3.1.1.js"></script>
-<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+@*<script src="~/Scripts/jquery-ui-1.12.1.js"></script>*@
 <script src="~/Scripts/jquery.jqGrid.min.js"></script>
 <script src="~/Scripts/jquery.contextmenu-fix.js"></script>
+<script src="~/Scripts/grid.locale-en.js"></script>
 <link rel="stylesheet" href="~/Content/jquery-ui.css" />
 <link rel="stylesheet" href="~/Content/ui.jqgrid.css" />
 <link rel="stylesheet" href="~/Content/Site.css" />
+<link rel="stylesheet" type="text/css" href="../css/redmond/jquery-ui-1.7.2.custom.css" />
+@Styles.Render("~/Content/css")
 
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                @*<li>@Html.ActionLink("About", "About", "Home")</li>*@
+                <li>@Html.ActionLink("Utilities Service", "Index", "Utilities")</li>
+            </ul>
+            <p class="nav navbar-text navbar-right">Hello, @User.Identity.Name!</p>
+        </div>
+    </div>
+</div>
 
-@Html.Partial("PowerOutage")
-<br />
-@Html.Partial("WaterOutage")
+<div class="container body-content">
+    @Html.Partial("PowerOutage")
+    <br />
+    @Html.Partial("WaterOutage")
 
+    <footer>
+        <p>&copy; @DateTime.Now.Year - SpokaneCity.org</p>
+    </footer>
+</div>
 
 
   

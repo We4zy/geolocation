@@ -1,2 +1,92 @@
 ﻿
+
 <h2 style="background-color:lightgray">Water Outages</h2>
+<table id="tblWaterOutageList"></table>
+<div id="WaterListPager"></div>
+
+<div class="contextMenu" id="myMenu2" style="display:none">
+    <ul style="width: auto!Important;">
+        <li id="ViewAddressDetails">
+            <span class="ui-icon ui-icon-plus" style="float:left"></span>
+            <span style="font-size:11px; font-family:Verdana; width:80px;">View Location Details/Map</span>
+        </li>
+    </ul>
+</div>
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+        InitGrid();
+    });
+
+
+    function InitGrid() {
+
+        $("#tblWaterOutageList").jqGrid({
+            url: "http://localhost:36453/api/UtilitiesAPI/GetWaterOutages",
+            datatype: "json",
+            mtype: "GET",
+            jsonReader: {
+                total: "Total",
+                records: "TotalRecords",
+                root: "Rows",
+                cell: "",
+                repeatitems: false
+            },
+            colNames: ['Loc Number', 'Loc Bldg Num', 'St Pre', 'Loc Street Name ', 'St Suffix',  'Loc City', 'Last Service Date'],
+            colModel: [
+                { name: 'SvcLocNbr', index: 'SvcLocNbr', width: 120, sorttype: "int", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
+                { name: 'SvcLocBldgNbr', index: 'SvcLocBldgNbr', width: 140, sorttype: "int", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
+                { name: 'SvcLocPreDir', index: 'SvcLocPreDir', width: 80, sorttype: "string", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
+                { name: 'SvcLocStreetName', index: 'SvcLocStreetName', width: 240, sorttype: "string", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
+                { name: 'SvcLocStreetSuffix', index: 'SvcLocStreetSuffix', width: 120, sorttype: "string", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
+                { name: 'SvcLocCity', index: 'SvcLocCity', width: 140, sorttype: "string", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
+                { name: 'LastNonZeroDate', index: 'LastNonZeroDate', width: 220, sorttype: "date", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
+            ],
+            search: true,
+            rowNum: 50,
+            rowList: [5, 10, 20, 50],
+            pager: '#WaterListPager',
+            height: 'auto',
+            width: 'auto',
+            hidegrid: true,
+            loadonce: true,
+            viewrecords: true,
+            sortname: 'LastNonZeroDate',
+            sortorder: "desc",
+            caption: "Water Outage Locations",
+            ondblClickRow: function (ServiceAddress, ri, ci) {
+                alert(ServiceAddress + ", " + ri + ", " + ci);
+            },
+            loadComplete: function () {
+                $("tr.jqgrow", this).contextMenu('myMenu2', {
+                    bindings: {
+                        'ViewAddressDetails': function (trigger, data) {
+
+                            ShowLocationMap(trigger);
+                        }
+                    }
+                });
+            }
+
+        });
+
+        $("#tblWaterOutageList").jqGrid('navGrid', '#WaterListPager', { add: false, edit: false, del: false, search: true, refresh: true },
+            {}, {}, {}, { multipleSearch: true, multipleGroup: true, showQuery: true });
+
+        $("#tblWaterOutageList").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false, defaultSearch: 'cn' });
+
+    }
+
+    function myformatter(cellvalue, options, rowObject) {
+        return rowObject.SvcLocBldgNbr + ' ' + rowObject.SvcLocPreDir + ' ' + rowObject.SvcLocStreetName + ' ' + rowObject.SvcLocStreetSuffix;
+    }
+
+    function ShowLocationMap(address) {
+        alert(JSON.stringify(address));
+    }
+
+</script>
