@@ -17,7 +17,14 @@ namespace UtilitiesService
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                );
+
+            routes.MapRoute(
+                name: "Utilities",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "UtilitiesAPI", action = "GetOutagesOverview", id = UrlParameter.Optional }
             );
+
         }
     }
 }

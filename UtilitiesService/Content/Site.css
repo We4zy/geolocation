@@ -22,3 +22,67 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*--------------------*/
+/* Pagination         */
+/*--------------------*/
+
+.pagingBlockContainer {
+    position: relative;
+    left: 50%;
+    float: left;
+}
+
+.paginationBlock {
+    position: relative;
+    left: -50%;
+    padding-top: 15px;
+}
+
+.paginationBlockSummary {
+    position: relative;
+    float: left;
+    font-size: 1.1em;
+    margin-right: 5px;
+}
+
+.paginationLink {
+    float: left;
+    width: 48px;
+    height: 18px;
+    margin-right: 5px;
+    font-size: 1.1em;
+    font-weight: 600;
+    border: solid 1px black;
+    background-color: #595959;
+    color: #ffc930;
+    text-align: center;
+    cursor: pointer;
+}
+
+.paginationLinkDisabled {
+    float: left;
+    width: 48px;
+    height: 18px;
+    margin-right: 5px;
+    font-size: 1.1em;
+    font-weight: 600;
+    border: solid 1px black;
+    background-color: #cdcdcd;
+    color: #595959;
+    text-align: center;
+}
+
+.paginationLinkCurrent {
+    float: left;
+    width: 48px;
+    height: 18px;
+    margin-right: 5px;
+    font-size: 1.1em;
+    font-weight: 600;
+    border: solid 1px black;
+    background-color: #ffc930;
+    color: #595959;
+    text-align: center;
+    cursor: default;
+}

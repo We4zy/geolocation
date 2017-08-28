@@ -1,17 +1,24 @@
 ﻿@{
-    Layout = null;
+    Layout = null; //"../Shared/_layout.cshtml";
+    ViewBag.Title = "Utilities Service Outages";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-    
-    </div>
-</body>
-</html>
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+<script src="~/Scripts/jquery.jqGrid.min.js"></script>
+<script src="~/Scripts/jquery.contextmenu-fix.js"></script>
+<link rel="stylesheet" href="~/Content/jquery-ui.css" />
+<link rel="stylesheet" href="~/Content/ui.jqgrid.css" />
+<link rel="stylesheet" href="~/Content/Site.css" />
+
+
+@Html.Partial("PowerOutage")
+<br />
+@Html.Partial("WaterOutage")
+
+
+
+  
+
+
