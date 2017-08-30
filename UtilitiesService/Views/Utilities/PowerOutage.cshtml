@@ -1,16 +1,16 @@
-﻿
-    <h2 style="background-color:lightgray">Power Outages</h2>
-    <table id="tblPowerOutageList"></table>
-   <div id="PowerOutageListPager"></div>
+﻿<!-- POWER OUTAGES jqGrid View -->
+<h2 style="background-color:lightgray">Power Outages</h2>
+<table id="tblPowerOutageList"></table>
+<div id="PowerOutageListPager"></div>
 
-    <div class="contextMenu" id="myMenu1" style="display:none">
-        <ul style="width: auto!Important;">
-            <li id="ViewAddressDetails">
-                <span class="ui-icon ui-icon-plus" style="float:left"></span>
-                <span style="font-size:11px; font-family:Verdana; width:80px;">Add Location to Existing</span>
-            </li>
-        </ul>
-    </div>
+<div class="contextMenu" id="myMenu1" style="display:none">
+    <ul style="width: auto!Important;">
+        <li id="ViewAddressDetails">
+            <span class="ui-icon ui-icon-plus" style="float:left"></span>
+            <span style="font-size:11px; font-family:Verdana; width:80px;">Add Location to Existing</span>
+        </li>
+    </ul>
+</div>
 
 
 <script type="text/javascript">
@@ -19,16 +19,12 @@
         InitPowerGrid();
     });
     
-
     function InitPowerGrid()
     {
-
         $("#tblPowerOutageList").jqGrid({
             url: "http://localhost:36453/api/UtilitiesAPI/GetPowerOutages",
             datatype: "json",
             mtype: "GET",
-            //datatype: "local",
-            //data: gridData,
             jsonReader: {
                 total: "Total",
                 records: "TotalRecords",
@@ -73,7 +69,6 @@
             {}, {}, {}, { multipleSearch: true, multipleGroup: true, showQuery: true });
 
         $("#tblPowerOutageList").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false, defaultSearch: 'cn' });
-
 
        // ChangejQGridDesign("#tblPowerOutageList", "#PowerOutageListPager");
     }
