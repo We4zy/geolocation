@@ -8,7 +8,7 @@
     <ul style="width: auto!Important;">
         <li id="ViewAddressDetails">
             <span class="ui-icon ui-icon-plus" style="float:left"></span>
-            <span style="font-size:11px; font-family:Verdana; width:80px;">View Location Details/Map</span>
+            <span style="font-size:11px; font-family:Verdana; width:80px;">Add Location to Existing</span>
         </li>
     </ul>
 </div>
@@ -18,12 +18,11 @@
 <script type="text/javascript">
 
     $(function () {
-
-        InitGrid();
+        InitWaterGrid();
     });
 
 
-    function InitGrid() {
+    function InitWaterGrid() {
 
         $("#tblWaterOutageList").jqGrid({
             url: "http://localhost:36453/api/UtilitiesAPI/GetWaterOutages",
@@ -58,20 +57,20 @@
             sortname: 'LastNonZeroDate',
             sortorder: "desc",
             caption: "Water Outage Locations",
-            ondblClickRow: function (ServiceAddress, ri, ci) {
-                alert(ServiceAddress + ", " + ri + ", " + ci);
+            onCellSelect: function (rowId, iRow, iCol, content, event) {
+                var rowData = jQuery("#tblWaterOutageList").getRowData(rowId);
+                var address = rowData["SvcLocBldgNbr"] + " " + rowData["SvcLocPreDir"] + " " + rowData["SvcLocStreetName"] + " " + rowData["SvcLocStreetSuffix"] + ", " + rowData["SvcLocCity"] + ", WA";
+                RedrawMap(address);
             },
             loadComplete: function () {
                 $("tr.jqgrow", this).contextMenu('myMenu2', {
                     bindings: {
                         'ViewAddressDetails': function (trigger, data) {
-
-                            ShowLocationMap(trigger);
+                            AddAndRedrawMap(data);
                         }
                     }
                 });
             }
-
         });
 
         $("#tblWaterOutageList").jqGrid('navGrid', '#WaterListPager', { add: false, edit: false, del: false, search: true, refresh: true },
@@ -85,8 +84,5 @@
         return rowObject.SvcLocBldgNbr + ' ' + rowObject.SvcLocPreDir + ' ' + rowObject.SvcLocStreetName + ' ' + rowObject.SvcLocStreetSuffix;
     }
 
-    function ShowLocationMap(address) {
-        alert(JSON.stringify(address));
-    }
 
 </script>

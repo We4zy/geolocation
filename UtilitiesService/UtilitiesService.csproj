@@ -172,6 +172,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\jquery-ui-1.7.2.custom.css" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery.ui.accordion.css" />
     <Content Include="Content\jquery.ui.all.css" />
@@ -282,6 +283,7 @@
     </Content>
     <Content Include="Views\Utilities\PowerOutage.cshtml" />
     <Content Include="Views\Utilities\WaterOutage.cshtml" />
+    <Content Include="Views\Utilities\LocationPicker.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -302,6 +304,7 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\locationpicker.jquery.js" />
     <None Include="UtilitiesService.dbml.layout">
       <DependentUpon>UtilitiesService.dbml</DependentUpon>
     </None>

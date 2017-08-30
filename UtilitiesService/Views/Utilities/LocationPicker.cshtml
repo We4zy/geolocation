@@ -1,0 +1,62 @@
+﻿
+@*<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>*@
+@*<script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>*@
+@*<script src="~/Scripts/locationpicker.jquery.js"></script>*@
+
+<style>
+    #map {
+        height: 400px;
+        width: 100%;
+    }
+</style>
+
+<div class="jumbotron">
+    <h1>Utility Location Map</h1>
+    <div id="map" style="width: 780px; height: 680px;"></div>
+</div>
+    
+
+    <script type="text/javascript">
+        //AIzaSyCgKBnA-jGLzTPPzfNo1BB5p7oyry15brA = Google Maps API Key
+
+        $(function () {
+        });
+
+        function RedrawMap(address)
+        {
+            var geocoder = new google.maps.Geocoder();
+
+            if (!address) address = "808 W Spokane Falls Blvd, Spokane, WA";
+
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    initMap(results[0].geometry.location.lat().toFixed(3), results[0].geometry.location.lng().toFixed(3));
+                }
+            });
+        }
+
+        function AddAndRedrawMap(address)
+        {
+            alert(JSON.stringify(address));
+        }
+
+        function initMap(lat, long) {
+
+            var uluru = { lat: parseFloat(lat), lng: parseFloat(long) };
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 14,
+                center: uluru
+            });
+            var marker = new google.maps.Marker({
+                position: uluru,
+                map: map
+            });
+        }
+    </script>
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgKBnA-jGLzTPPzfNo1BB5p7oyry15brA&callback=RedrawMap">
+    </script>
+
+

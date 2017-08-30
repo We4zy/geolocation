@@ -7,7 +7,7 @@
         <ul style="width: auto!Important;">
             <li id="ViewAddressDetails">
                 <span class="ui-icon ui-icon-plus" style="float:left"></span>
-                <span style="font-size:11px; font-family:Verdana; width:80px;">View Location Details/Map</span>
+                <span style="font-size:11px; font-family:Verdana; width:80px;">Add Location to Existing</span>
             </li>
         </ul>
     </div>
@@ -16,12 +16,11 @@
 <script type="text/javascript">
 
     $(function () {
-
-        InitGrid1();
+        InitPowerGrid();
     });
     
 
-    function InitGrid1()
+    function InitPowerGrid()
     {
 
         $("#tblPowerOutageList").jqGrid({
@@ -55,20 +54,19 @@
             sortname: 'ServiceAsOfDate',
             sortorder: "desc",
             caption: "Power Outage Locations",
-            ondblClickRow: function (ServiceAddress, ri, ci) {
-                alert(ServiceAddress + ", " + ri + ", " + ci);
+            onCellSelect: function (rowId, iRow, iCol, content, event) {
+                //RenderCoordsToMap(rowId, iRow, iCol, content, event);
+                RedrawMap(iCol);
             },
             loadComplete: function () {
                 $("tr.jqgrow", this).contextMenu('myMenu1', {
                     bindings: {
                         'ViewAddressDetails': function (trigger, data) {
-
-                            ShowLocationMap(trigger);
+                            AddAndRedrawMap(data);
                         }
                     }
                 });
             }
-
         });
 
         $("#tblPowerOutageList").jqGrid('navGrid', '#PowerOutageListPager', { add: false, edit: false, del: false, search: true, refresh: true },
@@ -76,12 +74,8 @@
 
         $("#tblPowerOutageList").jqGrid('filterToolbar', { stringResult: true, searchOnEnter: false, defaultSearch: 'cn' });
 
-    }
 
-
-    function ShowLocationMap(address)
-    {
-        alert(JSON.stringify(address));
+       // ChangejQGridDesign("#tblPowerOutageList", "#PowerOutageListPager");
     }
      
 </script>

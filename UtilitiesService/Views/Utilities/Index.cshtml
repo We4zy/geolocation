@@ -3,50 +3,132 @@
     ViewBag.Title = "Utilities Service Outages";
 }
 
-
-<script src="~/Scripts/jquery-3.1.1.js"></script>
-@*<script src="~/Scripts/jquery-ui-1.12.1.js"></script>*@
-<script src="~/Scripts/jquery.jqGrid.min.js"></script>
-<script src="~/Scripts/jquery.contextmenu-fix.js"></script>
-<script src="~/Scripts/grid.locale-en.js"></script>
-<link rel="stylesheet" href="~/Content/jquery-ui.css" />
-<link rel="stylesheet" href="~/Content/ui.jqgrid.css" />
-<link rel="stylesheet" href="~/Content/Site.css" />
-<link rel="stylesheet" type="text/css" href="../css/redmond/jquery-ui-1.7.2.custom.css" />
-@Styles.Render("~/Content/css")
-
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                @*<li>@Html.ActionLink("About", "About", "Home")</li>*@
-                <li>@Html.ActionLink("Utilities Service", "Index", "Utilities")</li>
-            </ul>
-            <p class="nav navbar-text navbar-right">Hello, @User.Identity.Name!</p>
+<html>
+<head>
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    @*<script src="~/Scripts/jquery-ui-1.12.1.js"></script>*@
+    <script src="~/Scripts/jquery.jqGrid.min.js"></script>
+    <script src="~/Scripts/jquery.contextmenu-fix.js"></script>
+    <script src="~/Scripts/grid.locale-en.js"></script>
+    <link rel="stylesheet" href="~/Content/jquery-ui.css" />
+    <link rel="stylesheet" href="~/Content/ui.jqgrid.css" />
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <link rel="stylesheet" href="~/Content/jquery-ui-1.7.2.custom.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @*<li>@Html.ActionLink("About", "About", "Home")</li>*@
+                    <li>@Html.ActionLink("Utilities Service", "Index", "Utilities")</li>
+                </ul>
+                <p class="nav navbar-text navbar-right">Hello, @User.Identity.Name!</p>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="container body-content">
-    @Html.Partial("PowerOutage")
-    <br />
-    @Html.Partial("WaterOutage")
+    <div class="">
 
-    <footer>
-        <p>&copy; @DateTime.Now.Year - SpokaneCity.org</p>
-    </footer>
-</div>
+        <table style="width:100%;">
+            <tr>
+                <td style="width:35%;">
+                    @Html.Partial("PowerOutage")
+                </td>
+                <td rowspan="2" style="width:960px; vertical-align:top;">
+                    
+                    <div style="z-index: 10; position: fixed; right: 0; top: 0px;">
+                        @Html.Partial("LocationPicker")
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Partial("WaterOutage")
+                </td>
+            </tr>
+        </table>
+
+        <footer>
+            <p>&copy; @DateTime.Now.Year - SpokaneCity.org</p>
+        </footer>
+    </div>
+
+</body>
+</html>
+
+<script type="text/javascript">
 
 
-  
+    function ChangejQGridDesign(table, pager) {
+        jQuery(table).jqGrid('navGrid', pager, {
+            edit: false, add: false, del: false,
+            search: true,
+            searchicon: 'ace-icon fa fa-search orange',
+            refresh: true,
+            refreshicon: 'ace-icon fa fa-refresh green',
+            view: true,
+            viewicon: 'ace-icon fa fa-search-plus grey'
+        });
+        //navButtons
+
+        jQuery(table).jqGrid('inlineNav', pager,
+            {  //navbar options
+                edit: true,
+                editicon: 'ace-icon fa fa-pencil blue',
+                add: true,
+                addicon: 'ace-icon fa fa-plus-circle purple',
+                del: true,
+                delicon: 'ace-icon fa fa-trash-o red'
+            });
+
+        //replace icons with FontAwesome icons like above
+        //updatePagerIcons
+        var replacement =
+            {
+                'ui-icon-seek-first': 'ace-icon fa fa-angle-double-left bigger-140',
+                'ui-icon-seek-prev': 'ace-icon fa fa-angle-left bigger-140',
+                'ui-icon-seek-next': 'ace-icon fa fa-angle-right bigger-140',
+                'ui-icon-seek-end': 'ace-icon fa fa-angle-double-right bigger-140'
+            };
+        $('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function () {
+            var icon = $(this);
+            var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
+
+            if ($class in replacement) icon.attr('class', 'ui-icon ' + replacement[$class]);
+        });
+
+        // enableTooltips
+        $('.navtable .ui-pg-button').tooltip({ container: 'body' });
+        $(table).find('.ui-pg-div').tooltip({ container: 'body' });
+
+        var $grid = $(table),
+            newWidth = $grid.closest(".ui-jqgrid").parent().width();
+        $grid.jqGrid("setGridWidth", newWidth, true);
+
+        $(window).on("resize", function () {
+            var $grid = $(table),
+                newWidth = $grid.closest(".ui-jqgrid").parent().width();
+            $grid.jqGrid("setGridWidth", newWidth, true);
+        });
+    }
+
+
+
+</script>
+
+
+
 
 
