@@ -23,6 +23,7 @@ namespace UtilitiesService.Controllers
             return "value";
             return "value";
             return "value";
+            return "value";
         }
 
         // POST api/<controller>
