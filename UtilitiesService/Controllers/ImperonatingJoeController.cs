@@ -30,6 +30,7 @@ namespace UtilitiesService.Controllers
         // PUT api/<controller>/5
         public void Put(int id, [FromBody]string value)
         {
+            var test = "dunny";
         }
 
         // DELETE api/<controller>/5
