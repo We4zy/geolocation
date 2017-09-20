@@ -23,9 +23,11 @@
     $(function () {
 
         $.ajax({
-            url: 'http://localhost:36453/api/UtilitiesAPI/GetOutagesOverview',
+            url: '/api/UtilitiesAPI/GetOutagesOverview',
             type: 'GET',
             dataType: 'json',
+            headers: { "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With" },
+            contentType: "application/json; charset=utf-8",
             success: function (data) {
                 response = data;
                 RenderHighchart();

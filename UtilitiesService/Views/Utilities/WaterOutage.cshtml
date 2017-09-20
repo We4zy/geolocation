@@ -24,6 +24,8 @@
         $("#tblWaterOutageList").jqGrid({
             url: "/api/UtilitiesAPI/GetWaterOutages",
             datatype: "json",
+            headers: { "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With" },
+            contentType: "application/json; charset=utf-8",
             mtype: "GET",
             jsonReader: {
                 total: "Total",
@@ -56,7 +58,7 @@
             caption: "Water Outage Locations",
             onCellSelect: function (rowId, iRow, iCol, content, event) {
                 var rowData = $("#tblWaterOutageList").getRowData(rowId);
-                var address = rowData["Svc_Loc_Addr"]; // + " " + rowData["SvcLocPreDir"] + " " + rowData["SvcLocStreetName"] + " " + rowData["SvcLocStreetSuffix"] + ", " + rowData["SvcLocCity"] + ", WA";
+                var address = rowData["Svc_Loc_Addr"];
                 RedrawMap(address);
             },
             loadComplete: function () {

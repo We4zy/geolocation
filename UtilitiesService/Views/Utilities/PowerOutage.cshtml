@@ -22,8 +22,10 @@
     function InitPowerGrid()
     {
         $("#tblPowerOutageList").jqGrid({
-            url: "http://localhost:36453/api/UtilitiesAPI/GetPowerOutages",
+            url: "/api/UtilitiesAPI/GetPowerOutages",
             datatype: "json",
+            headers: { "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With" },
+            contentType: "application/json; charset=utf-8",
             mtype: "GET",
             jsonReader: {
                 total: "Total",
