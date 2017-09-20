@@ -20,6 +20,7 @@ namespace UtilitiesService.Controllers
         public string Get(int id)
         {
             return "value";
+            return "value";
         }
 
         // POST api/<controller>
