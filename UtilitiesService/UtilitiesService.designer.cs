@@ -30,9 +30,6 @@ namespace UtilitiesService
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertNoWaterUsage(NoWaterUsage instance);
-    partial void UpdateNoWaterUsage(NoWaterUsage instance);
-    partial void DeleteNoWaterUsage(NoWaterUsage instance);
     #endregion
 		
 		public UtilitiesServiceDataContext() : 
@@ -73,19 +70,19 @@ namespace UtilitiesService
 			}
 		}
 		
-		public System.Data.Linq.Table<NoWaterUsage> NoWaterUsages
-		{
-			get
-			{
-				return this.GetTable<NoWaterUsage>();
-			}
-		}
-		
 		public System.Data.Linq.Table<vwUtilitiesOutagesOverview> vwUtilitiesOutagesOverviews
 		{
 			get
 			{
 				return this.GetTable<vwUtilitiesOutagesOverview>();
+			}
+		}
+		
+		public System.Data.Linq.Table<vwMeterStatus> vwMeterStatus
+		{
+			get
+			{
+				return this.GetTable<vwMeterStatus>();
 			}
 		}
 	}
@@ -171,212 +168,6 @@ namespace UtilitiesService
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="UB.NoWaterUsage")]
-	public partial class NoWaterUsage : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private decimal _SvcLocNbr;
-		
-		private string _SvcLocBldgNbr;
-		
-		private string _SvcLocPreDir;
-		
-		private string _SvcLocStreetName;
-		
-		private string _SvcLocStreetSuffix;
-		
-		private string _SvcLocCity;
-		
-		private System.DateTime _LastNonZeroDate;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnSvcLocNbrChanging(decimal value);
-    partial void OnSvcLocNbrChanged();
-    partial void OnSvcLocBldgNbrChanging(string value);
-    partial void OnSvcLocBldgNbrChanged();
-    partial void OnSvcLocPreDirChanging(string value);
-    partial void OnSvcLocPreDirChanged();
-    partial void OnSvcLocStreetNameChanging(string value);
-    partial void OnSvcLocStreetNameChanged();
-    partial void OnSvcLocStreetSuffixChanging(string value);
-    partial void OnSvcLocStreetSuffixChanged();
-    partial void OnSvcLocCityChanging(string value);
-    partial void OnSvcLocCityChanged();
-    partial void OnLastNonZeroDateChanging(System.DateTime value);
-    partial void OnLastNonZeroDateChanged();
-    #endregion
-		
-		public NoWaterUsage()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SvcLocNbr", DbType="Decimal(18,0) NOT NULL", IsPrimaryKey=true)]
-		public decimal SvcLocNbr
-		{
-			get
-			{
-				return this._SvcLocNbr;
-			}
-			set
-			{
-				if ((this._SvcLocNbr != value))
-				{
-					this.OnSvcLocNbrChanging(value);
-					this.SendPropertyChanging();
-					this._SvcLocNbr = value;
-					this.SendPropertyChanged("SvcLocNbr");
-					this.OnSvcLocNbrChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SvcLocBldgNbr", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
-		public string SvcLocBldgNbr
-		{
-			get
-			{
-				return this._SvcLocBldgNbr;
-			}
-			set
-			{
-				if ((this._SvcLocBldgNbr != value))
-				{
-					this.OnSvcLocBldgNbrChanging(value);
-					this.SendPropertyChanging();
-					this._SvcLocBldgNbr = value;
-					this.SendPropertyChanged("SvcLocBldgNbr");
-					this.OnSvcLocBldgNbrChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SvcLocPreDir", DbType="VarChar(2)")]
-		public string SvcLocPreDir
-		{
-			get
-			{
-				return this._SvcLocPreDir;
-			}
-			set
-			{
-				if ((this._SvcLocPreDir != value))
-				{
-					this.OnSvcLocPreDirChanging(value);
-					this.SendPropertyChanging();
-					this._SvcLocPreDir = value;
-					this.SendPropertyChanged("SvcLocPreDir");
-					this.OnSvcLocPreDirChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SvcLocStreetName", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
-		public string SvcLocStreetName
-		{
-			get
-			{
-				return this._SvcLocStreetName;
-			}
-			set
-			{
-				if ((this._SvcLocStreetName != value))
-				{
-					this.OnSvcLocStreetNameChanging(value);
-					this.SendPropertyChanging();
-					this._SvcLocStreetName = value;
-					this.SendPropertyChanged("SvcLocStreetName");
-					this.OnSvcLocStreetNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SvcLocStreetSuffix", DbType="VarChar(5)")]
-		public string SvcLocStreetSuffix
-		{
-			get
-			{
-				return this._SvcLocStreetSuffix;
-			}
-			set
-			{
-				if ((this._SvcLocStreetSuffix != value))
-				{
-					this.OnSvcLocStreetSuffixChanging(value);
-					this.SendPropertyChanging();
-					this._SvcLocStreetSuffix = value;
-					this.SendPropertyChanged("SvcLocStreetSuffix");
-					this.OnSvcLocStreetSuffixChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SvcLocCity", DbType="VarChar(20)")]
-		public string SvcLocCity
-		{
-			get
-			{
-				return this._SvcLocCity;
-			}
-			set
-			{
-				if ((this._SvcLocCity != value))
-				{
-					this.OnSvcLocCityChanging(value);
-					this.SendPropertyChanging();
-					this._SvcLocCity = value;
-					this.SendPropertyChanged("SvcLocCity");
-					this.OnSvcLocCityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastNonZeroDate", DbType="Date NOT NULL")]
-		public System.DateTime LastNonZeroDate
-		{
-			get
-			{
-				return this._LastNonZeroDate;
-			}
-			set
-			{
-				if ((this._LastNonZeroDate != value))
-				{
-					this.OnLastNonZeroDateChanging(value);
-					this.SendPropertyChanging();
-					this._LastNonZeroDate = value;
-					this.SendPropertyChanged("LastNonZeroDate");
-					this.OnLastNonZeroDateChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vwUtilitiesOutagesOverview")]
 	public partial class vwUtilitiesOutagesOverview
 	{
@@ -417,6 +208,141 @@ namespace UtilitiesService
 				if ((this._WaterOutages != value))
 				{
 					this._WaterOutages = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="UB.vwMeterStatus")]
+	public partial class vwMeterStatus
+	{
+		
+		private decimal _Acct__;
+		
+		private string _Customer_Name;
+		
+		private string _Svc_Loc_Addr;
+		
+		private string _Parcel;
+		
+		private string _Meter_Status;
+		
+		private System.DateTime _Meter_Status_Date;
+		
+		private string _Status_Code;
+		
+		public vwMeterStatus()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Acct #]", Storage="_Acct__", DbType="Decimal(22,0) NOT NULL")]
+		public decimal Acct__
+		{
+			get
+			{
+				return this._Acct__;
+			}
+			set
+			{
+				if ((this._Acct__ != value))
+				{
+					this._Acct__ = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Customer Name]", Storage="_Customer_Name", DbType="NVarChar(41)")]
+		public string Customer_Name
+		{
+			get
+			{
+				return this._Customer_Name;
+			}
+			set
+			{
+				if ((this._Customer_Name != value))
+				{
+					this._Customer_Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Svc Loc Addr]", Storage="_Svc_Loc_Addr", DbType="NVarChar(51)")]
+		public string Svc_Loc_Addr
+		{
+			get
+			{
+				return this._Svc_Loc_Addr;
+			}
+			set
+			{
+				if ((this._Svc_Loc_Addr != value))
+				{
+					this._Svc_Loc_Addr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Parcel", DbType="NVarChar(15) NOT NULL", CanBeNull=false)]
+		public string Parcel
+		{
+			get
+			{
+				return this._Parcel;
+			}
+			set
+			{
+				if ((this._Parcel != value))
+				{
+					this._Parcel = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Meter Status]", Storage="_Meter_Status", DbType="NVarChar(6) NOT NULL", CanBeNull=false)]
+		public string Meter_Status
+		{
+			get
+			{
+				return this._Meter_Status;
+			}
+			set
+			{
+				if ((this._Meter_Status != value))
+				{
+					this._Meter_Status = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Meter Status Date]", Storage="_Meter_Status_Date", DbType="DateTime2 NOT NULL")]
+		public System.DateTime Meter_Status_Date
+		{
+			get
+			{
+				return this._Meter_Status_Date;
+			}
+			set
+			{
+				if ((this._Meter_Status_Date != value))
+				{
+					this._Meter_Status_Date = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Status Code]", Storage="_Status_Code", DbType="NVarChar(30) NOT NULL", CanBeNull=false)]
+		public string Status_Code
+		{
+			get
+			{
+				return this._Status_Code;
+			}
+			set
+			{
+				if ((this._Status_Code != value))
+				{
+					this._Status_Code = value;
 				}
 			}
 		}

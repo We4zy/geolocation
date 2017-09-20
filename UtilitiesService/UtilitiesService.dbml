@@ -8,21 +8,21 @@
       <Column Name="ServiceAsOfDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="UB.NoWaterUsage" Member="NoWaterUsages">
-    <Type Name="NoWaterUsage">
-      <Column Name="SvcLocNbr" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="SvcLocBldgNbr" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
-      <Column Name="SvcLocPreDir" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
-      <Column Name="SvcLocStreetName" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
-      <Column Name="SvcLocStreetSuffix" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
-      <Column Name="SvcLocCity" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="LastNonZeroDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
   <Table Name="dbo.vwUtilitiesOutagesOverview" Member="vwUtilitiesOutagesOverviews">
     <Type Name="vwUtilitiesOutagesOverview">
       <Column Name="PowerOutages" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="WaterOutages" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="UB.vwMeterStatus" Member="vwMeterStatus">
+    <Type Name="vwMeterStatus">
+      <Column Name="[Acct #]" Member="Acct__" Type="System.Decimal" DbType="Decimal(22,0) NOT NULL" CanBeNull="false" />
+      <Column Name="[Customer Name]" Member="Customer_Name" Type="System.String" DbType="NVarChar(41)" CanBeNull="true" />
+      <Column Name="[Svc Loc Addr]" Member="Svc_Loc_Addr" Type="System.String" DbType="NVarChar(51)" CanBeNull="true" />
+      <Column Name="Parcel" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="[Meter Status]" Member="Meter_Status" Type="System.String" DbType="NVarChar(6) NOT NULL" CanBeNull="false" />
+      <Column Name="[Meter Status Date]" Member="Meter_Status_Date" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="[Status Code]" Member="Status_Code" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

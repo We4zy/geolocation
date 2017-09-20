@@ -22,7 +22,7 @@
     function InitWaterGrid()
     {
         $("#tblWaterOutageList").jqGrid({
-            url: "http://localhost:36453/api/UtilitiesAPI/GetWaterOutages",
+            url: "/api/UtilitiesAPI/GetWaterOutages",
             datatype: "json",
             mtype: "GET",
             jsonReader: {
@@ -32,15 +32,15 @@
                 cell: "",
                 repeatitems: false
             },
-            colNames: ['Loc Number', 'Loc Bldg Num', 'St Pre', 'Loc Street Name ', 'St Suffix',  'Loc City', 'Last Service Date'],
+            colNames: ['Acct', 'Customer Name', 'Loc Address', 'Parcel', 'Status Code',  'Shutoff Date', 'Status Code'],
             colModel: [
-                { name: 'SvcLocNbr', index: 'SvcLocNbr', width: 120, sorttype: "int", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
-                { name: 'SvcLocBldgNbr', index: 'SvcLocBldgNbr', width: 140, sorttype: "int", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
-                { name: 'SvcLocPreDir', index: 'SvcLocPreDir', width: 80, sorttype: "string", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
-                { name: 'SvcLocStreetName', index: 'SvcLocStreetName', width: 240, sorttype: "string", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
-                { name: 'SvcLocStreetSuffix', index: 'SvcLocStreetSuffix', width: 120, sorttype: "string", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
-                { name: 'SvcLocCity', index: 'SvcLocCity', width: 140, sorttype: "string", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
-                { name: 'LastNonZeroDate', index: 'LastNonZeroDate', width: 220, sorttype: "date", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
+                { name: 'Acct__', index: 'Acct #', width: 80, sorttype: "int", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
+                { name: 'Customer_Name', index: 'Customer_Name', width: 200, sorttype: "int", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
+                { name: 'Svc_Loc_Addr', index: 'Svc_Loc_Addr', width: 240, sorttype: "string", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
+                { name: 'Parcel', index: 'Parcel', width: 120, sorttype: "string", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
+                { name: 'Meter_Status', index: 'Meter_Status', width: 60, sorttype: "string", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
+                { name: 'Meter_Status_Date', index: 'Meter_Status_Date', width: 140, sorttype: "date", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
+                { name: 'Status_Code', index: 'Status_Code', width: 220, sorttype: "date", searchoptions: { sopt: ['cn', 'eq', 'bw'] } },
             ],
             search: true,
             rowNum: 50,
@@ -55,8 +55,8 @@
             sortorder: "desc",
             caption: "Water Outage Locations",
             onCellSelect: function (rowId, iRow, iCol, content, event) {
-                var rowData = jQuery("#tblWaterOutageList").getRowData(rowId);
-                var address = rowData["SvcLocBldgNbr"] + " " + rowData["SvcLocPreDir"] + " " + rowData["SvcLocStreetName"] + " " + rowData["SvcLocStreetSuffix"] + ", " + rowData["SvcLocCity"] + ", WA";
+                var rowData = $("#tblWaterOutageList").getRowData(rowId);
+                var address = rowData["Svc_Loc_Addr"]; // + " " + rowData["SvcLocPreDir"] + " " + rowData["SvcLocStreetName"] + " " + rowData["SvcLocStreetSuffix"] + ", " + rowData["SvcLocCity"] + ", WA";
                 RedrawMap(address);
             },
             loadComplete: function () {

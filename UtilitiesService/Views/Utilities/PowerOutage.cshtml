@@ -51,8 +51,9 @@
             sortorder: "desc",
             caption: "Power Outage Locations",
             onCellSelect: function (rowId, iRow, iCol, content, event) {
-                //RenderCoordsToMap(rowId, iRow, iCol, content, event);
-                RedrawMap(iCol);
+                var rowData = $("#tblPowerOutageList").getRowData(rowId);
+                var address = rowData["ServiceAddress"] + ", " + rowData["ServiceCity"] + ", " + rowData["ServiceState"];
+                RedrawMap(address);
             },
             loadComplete: function () {
                 $("tr.jqgrow", this).contextMenu('myMenu1', {
